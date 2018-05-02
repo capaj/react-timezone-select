@@ -14,7 +14,7 @@ $ npm install react-select-timezone
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { SelectTimezone } from 'react-select-timezone';
+import SelectTimezone from 'react-select-timezone';
 
 const App = () => {
   return (
