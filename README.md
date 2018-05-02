@@ -1,11 +1,13 @@
 # React-Select-Timezone
 
-A simple component is built in from [React-Select](https://github.com/JedWatson/react-select) and [Moment.Timezone](https://momentjs.com/timezone/)
+A simple component wrapping [React-Select](https://github.com/JedWatson/react-select) and [Moment.Timezone](https://momentjs.com/timezone/) to make a timezone picker.
+
+Forked from vinhnglx/react-timezone-select
 
 ## Installation
 
 ```
-$ npm install react-select-timezone
+$ npm install @capaj/react-select-timezone
 ```
 
 ## Usage
@@ -19,7 +21,7 @@ import SelectTimezone from 'react-select-timezone';
 const App = () => {
   return (
     <div>
-      <SelectTimezone />
+      <SelectTimezone onChange={(timezone) => console.log(timezone)}/>
     </div>
   );
 };
@@ -30,7 +32,3 @@ App.propTypes = {
 
 export default App;
 ```
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/vinhnglx/react-timezone-select
