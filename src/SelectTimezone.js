@@ -9,7 +9,15 @@ import 'react-select/dist/react-select.css'
 class SelectTimezone extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.state = {}
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value) {
+      return {
+        selectedValue: nextProps.value
+      }
+    }
+    return {
       selectedValue: moment.tz.guess()
     }
   }
@@ -42,20 +50,18 @@ class SelectTimezone extends React.Component {
   }
 
   render() {
-    const { onChange, value } = this.props
-
+    const { onChange, value, clearable = false, ...restProps } = this.props
     const selectOptions = this.timeZones()
-
     return (
       <Select
-        required
-        clearable={false}
+        clearable={clearable}
         options={selectOptions}
         onChange={val => {
           this.setState({ selectedValue: val.value })
           onChange(val)
         }}
         value={this.state.selectedValue}
+        {...restProps}
       />
     )
   }
