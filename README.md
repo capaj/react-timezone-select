@@ -23,6 +23,8 @@ const App = () => {
     <div>
       <SelectTimezone
         value={momentTimezone.tz.guess()} // the default, so you can omit if you don't need other value
+        clearable // allows user to have null value in this select
+        guess // this will fill the input with user's timezone guessed by moment. A "value" prop has always bigger priority than guessed TZ
         onChange={val => {
           console.log(val.value) // like "Europe/London"
           console.log(val.time) // like "-2.00"
