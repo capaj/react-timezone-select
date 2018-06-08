@@ -41,3 +41,5 @@ App.propTypes = {
 
 export default App
 ```
+
+if you just need to display a timezone in the same format, do `import {formatTimezone} from @capaj/react-select-timezone` and use that

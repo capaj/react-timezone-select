@@ -6,6 +6,9 @@ import 'moment-timezone'
 
 import 'react-select/dist/react-select.css'
 
+export const formatTimezone = tzString =>
+  `(GMT${moment.tz(tzString).format('Z')}) ${tzString}`
+
 class SelectTimezone extends React.Component {
   constructor(props) {
     super(props)
@@ -42,7 +45,7 @@ class SelectTimezone extends React.Component {
       let x = tz === 0 ? 0 : parseInt(tz).toFixed(2)
 
       const timeZone = {
-        label: `(GMT${moment.tz(timeZones[i]).format('Z')}) ${timeZones[i]}`,
+        label: formatTimezone(timeZones[i]),
         value: `${timeZones[i]}`,
         time: `${x}`
       }
