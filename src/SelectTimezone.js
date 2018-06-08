@@ -37,17 +37,18 @@ class SelectTimezone extends React.Component {
     const offsetTmz = []
 
     for (const i in timeZones) {
-      const tz = moment
-        .tz(timeZones[i])
+      const tz = moment.tz(timeZones[i])
+      const tzStringOffset = tz
         .format('Z')
         .replace(':00', '')
         .replace(':30', '.5')
-      let x = tz === 0 ? 0 : parseInt(tz).toFixed(2)
+      let x = tzStringOffset === 0 ? 0 : parseInt(tzStringOffset).toFixed(2)
 
       const timeZone = {
         label: formatTimezone(timeZones[i]),
         value: `${timeZones[i]}`,
-        time: `${x}`
+        time: `${x}`,
+        offset: tz._offset
       }
       offsetTmz.push(timeZone)
     }
@@ -69,11 +70,11 @@ class SelectTimezone extends React.Component {
         onChange={val => {
           if (val) {
             this.setState({ selectedValue: val.value })
+            onChange && onChange(val)
           } else {
             this.setState({ selectedValue: null })
+            onChange && onChange({ value: null })
           }
-
-          onChange && onChange(val)
         }}
         value={this.state.selectedValue}
         {...restProps}

@@ -29,6 +29,7 @@ const App = () => {
           console.log(val.value) // like "Europe/London"
           console.log(val.time) // like "-2.00"
           console.log(val.label) // like "(GMT+02:00) Europe/Prague"
+          console.log(val.offset) // like -120
         }}
       />
     </div>
