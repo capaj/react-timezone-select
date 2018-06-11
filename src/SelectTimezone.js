@@ -61,10 +61,17 @@ class SelectTimezone extends React.Component {
   }
 
   render() {
-    const { onChange, value, clearable = false, ...restProps } = this.props
+    const {
+      onChange,
+      value,
+      clearable = false,
+      className,
+      ...restProps
+    } = this.props
     const selectOptions = this.timeZones()
     return (
       <Select
+        className={'timezone ' + className}
         clearable={clearable}
         options={selectOptions}
         onChange={val => {
