@@ -1,6 +1,6 @@
 {
   "name": "@capaj/react-select-timezone",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React select timezone ",
   "main": "build/SelectTimezone.js",
   "scripts": {

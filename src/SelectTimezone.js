@@ -1,8 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 import sortBy from 'lodash.sortby'
-import moment from 'moment'
-import 'moment-timezone'
+import moment from 'moment-timezone'
 
 import 'react-select/dist/react-select.css'
 
