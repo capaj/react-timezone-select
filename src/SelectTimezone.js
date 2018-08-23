@@ -3,10 +3,24 @@ import Select from 'react-select'
 import sortBy from 'lodash.sortby'
 import moment from 'moment-timezone'
 
-import 'react-select/dist/react-select.css'
-
 export const formatTimezone = tzString =>
   `(GMT${moment.tz(tzString).format('Z')}) ${tzString}`
+
+export const getTimezoneProps = tzString => {
+  const tz = moment.tz(tzString)
+  const tzStringOffset = tz
+    .format('Z')
+    .replace(':00', '')
+    .replace(':30', '.5')
+  let x = tzStringOffset === 0 ? 0 : parseInt(tzStringOffset).toFixed(2)
+
+  return {
+    label: formatTimezone(tzString),
+    value: `${tzString}`,
+    time: `${x}`,
+    offset: tz._offset
+  }
+}
 
 class SelectTimezone extends React.Component {
   constructor(props) {
@@ -36,20 +50,7 @@ class SelectTimezone extends React.Component {
     const offsetTmz = []
 
     for (const i in timeZones) {
-      const tz = moment.tz(timeZones[i])
-      const tzStringOffset = tz
-        .format('Z')
-        .replace(':00', '')
-        .replace(':30', '.5')
-      let x = tzStringOffset === 0 ? 0 : parseInt(tzStringOffset).toFixed(2)
-
-      const timeZone = {
-        label: formatTimezone(timeZones[i]),
-        value: `${timeZones[i]}`,
-        time: `${x}`,
-        offset: tz._offset
-      }
-      offsetTmz.push(timeZone)
+      offsetTmz.push(getTimezoneProps(timeZones[i]))
     }
 
     return sortBy(offsetTmz, [
@@ -63,26 +64,32 @@ class SelectTimezone extends React.Component {
     const {
       onChange,
       value,
-      clearable = false,
+      isClearable = false,
       className,
       ...restProps
     } = this.props
     const selectOptions = this.timeZones()
+    const selectClassName = className ? className : 'react-select-timezone'
+    const selected = selectOptions.find(({ value }) => {
+      return value === this.state.selectedValue
+    })
+
     return (
       <Select
-        className={'timezone ' + className}
-        clearable={clearable}
+        className={selectClassName}
+        isClearable={isClearable}
         options={selectOptions}
-        onChange={val => {
-          if (val) {
-            this.setState({ selectedValue: val.value })
-            onChange && onChange(val)
+        isMulti={false}
+        onChange={option => {
+          if (option) {
+            this.setState({ selectedValue: option.value })
+            onChange && onChange(option.value)
           } else {
             this.setState({ selectedValue: null })
-            onChange && onChange({ value: null })
+            onChange && onChange(null)
           }
         }}
-        value={this.state.selectedValue}
+        defaultValue={selected}
         {...restProps}
       />
     )

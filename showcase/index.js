@@ -4,16 +4,21 @@ import SelectTimezone, { formatTimezone } from '../src/SelectTimezone'
 
 const Test = () => (
   <Fragment>
-    <SelectTimezone clearable />
-    Check the console to see formatted timezone value:
+    See the value in the console
     <SelectTimezone
-      clearable
-      guess
-      onChange={opt => {
-        console.log(formatTimezone(opt.value))
+      isClearable
+      onChange={value => {
+        console.log(value)
       }}
     />
-    <SelectTimezone clearable guess value={'Europe/London'} />
+    Check the console to see formatted timezone value:
+    <SelectTimezone
+      guess
+      onChange={value => {
+        console.log(formatTimezone(value))
+      }}
+    />
+    <SelectTimezone isClearable guess value={'Europe/London'} />
   </Fragment>
 )
 
