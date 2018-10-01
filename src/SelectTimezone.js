@@ -27,50 +27,53 @@ class SelectTimezone extends React.Component {
     super(props)
 
     this.state = {}
-    if (props.guess) {
-      this.state.selectedValue = moment.tz.guess()
-    }
-  }
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.value) {
-      return {
-        selectedValue: nextProps.value
-      }
-    }
-    if (nextProps.value === undefined) {
-      return prevState
-    }
-    return {
-      selectedValue: null
-    }
-  }
 
-  timeZones() {
-    const timeZones = moment.tz.names()
-    const offsetTmz = []
+    const timeZones = moment.tz.names().map(tz => {
+      return getTimezoneProps(tz)
+    })
 
-    for (const i in timeZones) {
-      offsetTmz.push(getTimezoneProps(timeZones[i]))
-    }
-
-    return sortBy(offsetTmz, [
+    this.timeZones = sortBy(timeZones, [
       function(el) {
         return -el.time
       }
     ])
   }
+  componentDidMount() {
+    const { onChange, value } = this.props
+    if (this.props.guess && !value) {
+      const guessed = moment.tz.guess()
+      onChange && onChange(guessed)
+      this.setState({
+        selectedValue: guessed
+      })
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value === undefined) {
+      return {
+        selectedValue: prevState.selectedValue
+      }
+    }
+    if (nextProps.value != prevState.selectedValue) {
+      return {
+        selectedValue: nextProps.value
+      }
+    }
+    return null
+  }
 
   render() {
     const {
       onChange,
-      value,
+      value: selectedTimezoneValue,
       isClearable = false,
       className,
       ...restProps
     } = this.props
-    const selectOptions = this.timeZones()
+
     const selectClassName = className ? className : 'react-select-timezone'
-    const selected = selectOptions.find(({ value }) => {
+    const selected = this.timeZones.find(({ value }) => {
       return value === this.state.selectedValue
     })
 
@@ -78,7 +81,7 @@ class SelectTimezone extends React.Component {
       <Select
         className={selectClassName}
         isClearable={isClearable}
-        options={selectOptions}
+        options={this.timeZones}
         isMulti={false}
         onChange={option => {
           if (option) {
@@ -89,7 +92,7 @@ class SelectTimezone extends React.Component {
             onChange && onChange(null)
           }
         }}
-        defaultValue={selected}
+        value={selected}
         {...restProps}
       />
     )
