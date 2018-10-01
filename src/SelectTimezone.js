@@ -2,11 +2,12 @@ import React from 'react'
 import Select from 'react-select'
 import sortBy from 'lodash.sortby'
 import moment from 'moment-timezone'
+import { List } from 'react-virtualized'
 
-export const formatTimezone = tzString =>
+export const formatTimezone = (tzString) =>
   `(GMT${moment.tz(tzString).format('Z')}) ${tzString}`
 
-export const getTimezoneProps = tzString => {
+export const getTimezoneProps = (tzString) => {
   const tz = moment.tz(tzString)
   const tzStringOffset = tz
     .format('Z')
@@ -22,13 +23,37 @@ export const getTimezoneProps = tzString => {
   }
 }
 
+export const makeVirtualMenuListComponent = (ListProps) => {
+  return (props) => {
+    return (
+      <List
+        rowCount={props.children.length}
+        style={{
+          width: '100%'
+        }}
+        rowHeight={34.18}
+        height={300}
+        width={600}
+        rowRenderer={({ key, index, style }) => {
+          return (
+            <div style={style} key={key}>
+              {props.children[index]}
+            </div>
+          )
+        }}
+        {...ListProps}
+      />
+    )
+  }
+}
+
 class SelectTimezone extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {}
 
-    const timeZones = moment.tz.names().map(tz => {
+    const timeZones = moment.tz.names().map((tz) => {
       return getTimezoneProps(tz)
     })
 
@@ -42,6 +67,7 @@ class SelectTimezone extends React.Component {
     const { onChange, value } = this.props
     if (this.props.guess && !value) {
       const guessed = moment.tz.guess()
+
       onChange && onChange(guessed)
       this.setState({
         selectedValue: guessed
@@ -51,9 +77,7 @@ class SelectTimezone extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.value === undefined) {
-      return {
-        selectedValue: prevState.selectedValue
-      }
+      return null
     }
     if (nextProps.value != prevState.selectedValue) {
       return {
@@ -83,7 +107,7 @@ class SelectTimezone extends React.Component {
         isClearable={isClearable}
         options={this.timeZones}
         isMulti={false}
-        onChange={option => {
+        onChange={(option) => {
           if (option) {
             this.setState({ selectedValue: option.value })
             onChange && onChange(option.value)

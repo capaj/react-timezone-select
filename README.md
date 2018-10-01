@@ -25,7 +25,7 @@ const App = () => {
         value={momentTimezone.tz.guess()} // the default, so you can omit if you don't need other value
         isClearable // allows user to have null value in this select
         guess // this will fill the input with user's timezone guessed by moment. A "value" prop has always bigger priority than guessed TZ
-        onChange={val => {
+        onChange={(val) => {
           console.log(val) // like "Europe/London"
           // if you need to get offset you can use
           const timezoneProps = getTimezoneProps(val)
@@ -46,3 +46,7 @@ export default App
 ```
 
 if you just need to display a timezone in the same format, do `import {formatTimezone} from @capaj/react-select-timezone` and use that. It will format the `Europe/London` into `(GMT+01:00) Europe/London`
+
+### Virtual menu list
+
+If you prefer virtualized list, import `makeVirtualMenuListComponent` and use it like show in the [showcase](showcase/index.js).
