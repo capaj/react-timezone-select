@@ -3,23 +3,19 @@ import Select from 'react-select'
 import sortBy from 'lodash.sortby'
 import moment from 'moment-timezone'
 import { List } from 'react-virtualized'
-
-export const formatTimezone = (tzString) =>
-  `(GMT${moment.tz(tzString).format('Z')}) ${tzString}`
+import { formatTimezone } from './formatTimezone'
+export * from './formatTimezone'
 
 export const getTimezoneProps = (tzString) => {
   const tz = moment.tz(tzString)
-  const tzStringOffset = tz
-    .format('Z')
-    .replace(':00', '')
-    .replace(':30', '.5')
+  const tzStringOffset = tz.format('Z').replace(':00', '').replace(':30', '.5')
   let x = tzStringOffset === 0 ? 0 : parseInt(tzStringOffset).toFixed(2)
 
   return {
     label: formatTimezone(tzString),
     value: `${tzString}`,
     time: `${x}`,
-    offset: tz._offset
+    offset: tz._offset,
   }
 }
 
@@ -29,7 +25,7 @@ export const makeVirtualMenuListComponent = (ListProps) => {
       <List
         rowCount={props.children.length}
         style={{
-          width: '100%'
+          width: '100%',
         }}
         rowHeight={34.18}
         height={300}
@@ -58,9 +54,9 @@ class SelectTimezone extends React.Component {
     })
 
     this.timeZones = sortBy(timeZones, [
-      function(el) {
+      function (el) {
         return -el.time
-      }
+      },
     ])
   }
   componentDidMount() {
@@ -70,7 +66,7 @@ class SelectTimezone extends React.Component {
 
       onChange && onChange(guessed)
       this.setState({
-        selectedValue: guessed
+        selectedValue: guessed,
       })
     }
   }
@@ -81,7 +77,7 @@ class SelectTimezone extends React.Component {
     }
     if (nextProps.value != prevState.selectedValue) {
       return {
-        selectedValue: nextProps.value
+        selectedValue: nextProps.value,
       }
     }
     return null

@@ -1,41 +1,45 @@
 {
   "name": "@capaj/react-select-timezone",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "React select timezone ",
-  "main": "build/SelectTimezone.js",
+  "main": "dist/SelectTimezone.js",
+  "source": "src/SelectTimezone.js",
+  "module": "dist/SelectTimezone.module.js",
   "scripts": {
-    "build": "babel src -d build",
+    "build": "microbundle",
     "build:watch": "babel lib -w -d build",
-    "prepublish": "npm run build",
-    "showcase": "parcel serve showcase/index.html"
+    "prepare": "npm run build",
+    "showcase": "parcel serve showcase/index.html -d parcel-dist"
   },
   "author": "capajj@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "microbundle": "^0.12.4",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
-    "prop-types": "^15.6.2",
+    "parcel-bundler": "^1.12.4",
+    "prop-types": "^15.7.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-select": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16",
-    "react-dom": "^16",
-    "react-select": "^2",
+    "react": "^17",
+    "react-dom": "^17",
+    "react-select": "^3",
     "moment": "^2",
     "moment-timezone": "^0.5"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "lodash.sortby": "^4.7.0",
-    "react-virtualized": "^9.20.1"
+    "react-virtualized": "^9.22.2"
   },
   "repository": {
     "type": "git",

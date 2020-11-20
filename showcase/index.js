@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import SelectTimezone, {
-  formatTimezone,
-  makeVirtualMenuListComponent
+  makeVirtualMenuListComponent,
 } from '../src/SelectTimezone'
+import { formatTimezone } from '../src/formatTimezone'
 
 const Test = () => (
   <Fragment>
@@ -26,7 +26,7 @@ const Test = () => (
     <SelectTimezone
       guess
       components={{
-        MenuList: makeVirtualMenuListComponent()
+        MenuList: makeVirtualMenuListComponent(),
       }}
     />
   </Fragment>
