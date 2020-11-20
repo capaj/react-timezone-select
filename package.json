@@ -1,27 +1,33 @@
 {
   "name": "@capaj/react-select-timezone",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "React select timezone ",
-  "main": "dist/SelectTimezone.js",
-  "source": "src/SelectTimezone.js",
-  "module": "dist/SelectTimezone.module.js",
+  "main": "dist-es5/SelectTimezone.js",
+  "source": "src/SelectTimezone.tsx",
+  "module": "dist-es6/SelectTimezone.js",
+  "types": "dist-es6/SelectTimezone.d.ts",
   "scripts": {
-    "build": "microbundle",
-    "build:watch": "babel lib -w -d build",
+    "build": "tsc --project ./tsconfig.json && tsc --project ./tsconfig-es5.json",
     "prepare": "npm run build",
     "showcase": "parcel serve showcase/index.html -d parcel-dist"
   },
   "author": "capajj@gmail.com",
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash.sortby": "^4.7.6",
+    "@types/moment-timezone": "^0.5.30",
+    "@types/react": "^16.9.56",
+    "@types/react-select": "^3.0.26",
+    "@types/react-virtualized": "^9.21.10",
     "microbundle": "^0.12.4",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "parcel-bundler": "^1.12.4",
     "prop-types": "^15.7.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-select": "^2.0.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-select": "^3.1.0",
+    "typescript": "^4.1.2"
   },
   "peerDependencies": {
     "react": "^17",

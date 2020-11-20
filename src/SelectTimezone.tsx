@@ -43,7 +43,8 @@ export const makeVirtualMenuListComponent = (ListProps) => {
   }
 }
 
-class SelectTimezone extends React.Component {
+export class SelectTimezone extends React.Component<any, any> {
+  timeZones: any[]
   constructor(props) {
     super(props)
 
@@ -118,5 +119,3 @@ class SelectTimezone extends React.Component {
     )
   }
 }
-
-export default SelectTimezone

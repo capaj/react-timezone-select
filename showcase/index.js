@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom'
 import React, { Fragment } from 'react'
-import SelectTimezone, {
+import {
+  SelectTimezone,
   makeVirtualMenuListComponent,
-} from '../src/SelectTimezone'
+} from '../dist-es6/SelectTimezone.js'
 import { formatTimezone } from '../src/formatTimezone'
 
 const Test = () => (

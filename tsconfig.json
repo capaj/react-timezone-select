@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "ES6",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "outDir": "./dist-es6",
+    "declaration": true,
+    "jsx": "react",
+    "skipLibCheck": true
+  },
+  "exclude": [".git", "**/node_modules/**", "**/dist-*/**", "**/build/**"]
+}
